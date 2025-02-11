@@ -3,7 +3,7 @@ name: Build macOS App
 on:
   push:
     branches:
-      - main  # Сборка будет запускаться при пуше в ветку main
+      - main  # Сборка будет запускаться при пуше в основную ветку
 
 jobs:
   build:
@@ -29,8 +29,11 @@ jobs:
 
       - name: Debug environment  # Отладочная информация
         run: |
+          echo "Python version:"
           python --version
+          echo "Installed packages:"
           pip list
+          echo "Current directory contents:"
           ls -la
 
       - name: Build macOS app  # Собираем приложение
@@ -38,7 +41,7 @@ jobs:
           python setup.py py2app
 
       - name: Upload artifact  # Загружаем готовое приложение
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Обновленная версия
         with:
           name: ISP_Program_3  # Имя артефакта
-          path: dist/Visual_7.0_Full_CSV_to_AE.app  # Путь к собранному приложению
+          path: dist/Visual_7.0_Full_CSV_to_AE.app  # Путь к собранному приложению      
